@@ -1,0 +1,745 @@
+
+LIC_Slave_02.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000042a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000099  00800060  00800060  0000049e  2**0
+                  ALLOC
+  2 .comment      00000030  00000000  00000000  0000049e  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 000000e8  00000000  00000000  000004ce  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000853  00000000  00000000  000005b6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000003fe  00000000  00000000  00000e09  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   0000040b  00000000  00000000  00001207  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000210  00000000  00000000  00001614  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000003f5  00000000  00000000  00001824  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    000003a9  00000000  00000000  00001c19  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 000000b8  00000000  00000000  00001fc2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	d9 c0       	rjmp	.+434    	; 0x1ca <__vector_11>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	db c1       	rjmp	.+950    	; 0x3da <__vector_17>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	20 e0       	ldi	r18, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a9 3f       	cpi	r26, 0xF9	; 249
+  3e:	b2 07       	cpc	r27, r18
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	21 d1       	rcall	.+578    	; 0x286 <main>
+  44:	f0 c1       	rjmp	.+992    	; 0x426 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <BH_Measure>:
+  48:	20 e1       	ldi	r18, 0x10	; 16
+  4a:	20 93 82 00 	sts	0x0082, r18
+  4e:	82 e0       	ldi	r24, 0x02	; 2
+  50:	80 93 83 00 	sts	0x0083, r24
+  54:	80 91 8e 00 	lds	r24, 0x008E
+  58:	8f 5f       	subi	r24, 0xFF	; 255
+  5a:	80 93 8e 00 	sts	0x008E, r24
+  5e:	81 e0       	ldi	r24, 0x01	; 1
+  60:	80 93 84 00 	sts	0x0084, r24
+  64:	93 e0       	ldi	r25, 0x03	; 3
+  66:	90 93 85 00 	sts	0x0085, r25
+  6a:	35 e0       	ldi	r19, 0x05	; 5
+  6c:	30 93 86 00 	sts	0x0086, r19
+  70:	34 e0       	ldi	r19, 0x04	; 4
+  72:	30 93 87 00 	sts	0x0087, r19
+  76:	80 93 88 00 	sts	0x0088, r24
+  7a:	31 e2       	ldi	r19, 0x21	; 33
+  7c:	30 93 89 00 	sts	0x0089, r19
+  80:	80 93 8a 00 	sts	0x008A, r24
+  84:	80 e2       	ldi	r24, 0x20	; 32
+  86:	80 93 8b 00 	sts	0x008B, r24
+  8a:	20 93 8c 00 	sts	0x008C, r18
+  8e:	90 93 8d 00 	sts	0x008D, r25
+  92:	6c e0       	ldi	r22, 0x0C	; 12
+  94:	70 e0       	ldi	r23, 0x00	; 0
+  96:	82 e8       	ldi	r24, 0x82	; 130
+  98:	90 e0       	ldi	r25, 0x00	; 0
+  9a:	83 d0       	rcall	.+262    	; 0x1a2 <RS232_Transmit_String_Buffer>
+  9c:	08 95       	ret
+
+0000009e <BH_Setpoint>:
+  9e:	20 e1       	ldi	r18, 0x10	; 16
+  a0:	20 93 76 00 	sts	0x0076, r18
+  a4:	42 e0       	ldi	r20, 0x02	; 2
+  a6:	40 93 77 00 	sts	0x0077, r20
+  aa:	90 91 8e 00 	lds	r25, 0x008E
+  ae:	9f 5f       	subi	r25, 0xFF	; 255
+  b0:	90 93 8e 00 	sts	0x008E, r25
+  b4:	31 e0       	ldi	r19, 0x01	; 1
+  b6:	30 93 78 00 	sts	0x0078, r19
+  ba:	93 e0       	ldi	r25, 0x03	; 3
+  bc:	90 93 79 00 	sts	0x0079, r25
+  c0:	55 e0       	ldi	r21, 0x05	; 5
+  c2:	50 93 7a 00 	sts	0x007A, r21
+  c6:	40 93 7b 00 	sts	0x007B, r20
+  ca:	30 93 7c 00 	sts	0x007C, r19
+  ce:	31 e2       	ldi	r19, 0x21	; 33
+  d0:	30 93 7d 00 	sts	0x007D, r19
+  d4:	80 93 7e 00 	sts	0x007E, r24
+  d8:	60 93 7f 00 	sts	0x007F, r22
+  dc:	20 93 80 00 	sts	0x0080, r18
+  e0:	90 93 81 00 	sts	0x0081, r25
+  e4:	6c e0       	ldi	r22, 0x0C	; 12
+  e6:	70 e0       	ldi	r23, 0x00	; 0
+  e8:	86 e7       	ldi	r24, 0x76	; 118
+  ea:	90 e0       	ldi	r25, 0x00	; 0
+  ec:	5a d0       	rcall	.+180    	; 0x1a2 <RS232_Transmit_String_Buffer>
+  ee:	08 95       	ret
+
+000000f0 <BH_SetFullOpen>:
+  f0:	20 e1       	ldi	r18, 0x10	; 16
+  f2:	20 93 6b 00 	sts	0x006B, r18
+  f6:	82 e0       	ldi	r24, 0x02	; 2
+  f8:	80 93 6c 00 	sts	0x006C, r24
+  fc:	80 91 8e 00 	lds	r24, 0x008E
+ 100:	8f 5f       	subi	r24, 0xFF	; 255
+ 102:	80 93 8e 00 	sts	0x008E, r24
+ 106:	81 e0       	ldi	r24, 0x01	; 1
+ 108:	80 93 6d 00 	sts	0x006D, r24
+ 10c:	93 e0       	ldi	r25, 0x03	; 3
+ 10e:	90 93 6e 00 	sts	0x006E, r25
+ 112:	34 e0       	ldi	r19, 0x04	; 4
+ 114:	30 93 6f 00 	sts	0x006F, r19
+ 118:	80 93 70 00 	sts	0x0070, r24
+ 11c:	80 93 71 00 	sts	0x0071, r24
+ 120:	30 93 72 00 	sts	0x0072, r19
+ 124:	87 e0       	ldi	r24, 0x07	; 7
+ 126:	80 93 73 00 	sts	0x0073, r24
+ 12a:	20 93 74 00 	sts	0x0074, r18
+ 12e:	90 93 75 00 	sts	0x0075, r25
+ 132:	6b e0       	ldi	r22, 0x0B	; 11
+ 134:	70 e0       	ldi	r23, 0x00	; 0
+ 136:	8b e6       	ldi	r24, 0x6B	; 107
+ 138:	90 e0       	ldi	r25, 0x00	; 0
+ 13a:	33 d0       	rcall	.+102    	; 0x1a2 <RS232_Transmit_String_Buffer>
+ 13c:	08 95       	ret
+
+0000013e <BH_SetFullClose>:
+ 13e:	20 e1       	ldi	r18, 0x10	; 16
+ 140:	20 93 60 00 	sts	0x0060, r18
+ 144:	82 e0       	ldi	r24, 0x02	; 2
+ 146:	80 93 61 00 	sts	0x0061, r24
+ 14a:	80 91 8e 00 	lds	r24, 0x008E
+ 14e:	8f 5f       	subi	r24, 0xFF	; 255
+ 150:	80 93 8e 00 	sts	0x008E, r24
+ 154:	81 e0       	ldi	r24, 0x01	; 1
+ 156:	80 93 62 00 	sts	0x0062, r24
+ 15a:	93 e0       	ldi	r25, 0x03	; 3
+ 15c:	90 93 63 00 	sts	0x0063, r25
+ 160:	34 e0       	ldi	r19, 0x04	; 4
+ 162:	30 93 64 00 	sts	0x0064, r19
+ 166:	80 93 65 00 	sts	0x0065, r24
+ 16a:	80 93 66 00 	sts	0x0066, r24
+ 16e:	30 93 67 00 	sts	0x0067, r19
+ 172:	8c e0       	ldi	r24, 0x0C	; 12
+ 174:	80 93 68 00 	sts	0x0068, r24
+ 178:	20 93 69 00 	sts	0x0069, r18
+ 17c:	90 93 6a 00 	sts	0x006A, r25
+ 180:	6b e0       	ldi	r22, 0x0B	; 11
+ 182:	70 e0       	ldi	r23, 0x00	; 0
+ 184:	80 e6       	ldi	r24, 0x60	; 96
+ 186:	90 e0       	ldi	r25, 0x00	; 0
+ 188:	0c d0       	rcall	.+24     	; 0x1a2 <RS232_Transmit_String_Buffer>
+ 18a:	08 95       	ret
+
+0000018c <RS232_Init>:
+ 18c:	90 bd       	out	0x20, r25	; 32
+ 18e:	89 b9       	out	0x09, r24	; 9
+ 190:	88 e9       	ldi	r24, 0x98	; 152
+ 192:	8a b9       	out	0x0a, r24	; 10
+ 194:	86 e8       	ldi	r24, 0x86	; 134
+ 196:	80 bd       	out	0x20, r24	; 32
+ 198:	08 95       	ret
+
+0000019a <RS232_Transmit_Char>:
+ 19a:	5d 9b       	sbis	0x0b, 5	; 11
+ 19c:	fe cf       	rjmp	.-4      	; 0x19a <RS232_Transmit_Char>
+ 19e:	8c b9       	out	0x0c, r24	; 12
+ 1a0:	08 95       	ret
+
+000001a2 <RS232_Transmit_String_Buffer>:
+ 1a2:	0f 93       	push	r16
+ 1a4:	1f 93       	push	r17
+ 1a6:	cf 93       	push	r28
+ 1a8:	df 93       	push	r29
+ 1aa:	8c 01       	movw	r16, r24
+ 1ac:	eb 01       	movw	r28, r22
+ 1ae:	20 97       	sbiw	r28, 0x00	; 0
+ 1b0:	39 f0       	breq	.+14     	; 0x1c0 <RS232_Transmit_String_Buffer+0x1e>
+ 1b2:	f8 01       	movw	r30, r16
+ 1b4:	81 91       	ld	r24, Z+
+ 1b6:	8f 01       	movw	r16, r30
+ 1b8:	f0 df       	rcall	.-32     	; 0x19a <RS232_Transmit_Char>
+ 1ba:	21 97       	sbiw	r28, 0x01	; 1
+ 1bc:	20 97       	sbiw	r28, 0x00	; 0
+ 1be:	c9 f7       	brne	.-14     	; 0x1b2 <RS232_Transmit_String_Buffer+0x10>
+ 1c0:	df 91       	pop	r29
+ 1c2:	cf 91       	pop	r28
+ 1c4:	1f 91       	pop	r17
+ 1c6:	0f 91       	pop	r16
+ 1c8:	08 95       	ret
+
+000001ca <__vector_11>:
+
+int i=0;
+
+//Preruseni prijmu sériove linky a ukládání do bufferu
+ISR(USART_RXC_vect)
+{
+ 1ca:	1f 92       	push	r1
+ 1cc:	0f 92       	push	r0
+ 1ce:	0f b6       	in	r0, 0x3f	; 63
+ 1d0:	0f 92       	push	r0
+ 1d2:	11 24       	eor	r1, r1
+ 1d4:	8f 93       	push	r24
+ 1d6:	9f 93       	push	r25
+ 1d8:	ef 93       	push	r30
+ 1da:	ff 93       	push	r31
+	while (!(UCSRA & (1<<RXC)));
+ 1dc:	5f 9b       	sbis	0x0b, 7	; 11
+ 1de:	fe cf       	rjmp	.-4      	; 0x1dc <__vector_11+0x12>
+	RxBuffer[RxBuffrRxPtr] = UDR;
+ 1e0:	e0 91 f7 00 	lds	r30, 0x00F7
+ 1e4:	8c b1       	in	r24, 0x0c	; 12
+ 1e6:	f0 e0       	ldi	r31, 0x00	; 0
+ 1e8:	ed 55       	subi	r30, 0x5D	; 93
+ 1ea:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1ec:	80 83       	st	Z, r24
+	
+	if(RxBuffrRxPtr >= 4)
+ 1ee:	80 91 f7 00 	lds	r24, 0x00F7
+ 1f2:	84 30       	cpi	r24, 0x04	; 4
+ 1f4:	e0 f0       	brcs	.+56     	; 0x22e <__vector_11+0x64>
+	{
+		if(RxBuffrRxPtr == 4)
+ 1f6:	80 91 f7 00 	lds	r24, 0x00F7
+ 1fa:	84 30       	cpi	r24, 0x04	; 4
+ 1fc:	59 f4       	brne	.+22     	; 0x214 <__vector_11+0x4a>
+		{
+			Odpocet_Delky = RxBuffer[RxBuffrRxPtr] + 2;
+ 1fe:	e0 91 f7 00 	lds	r30, 0x00F7
+ 202:	f0 e0       	ldi	r31, 0x00	; 0
+ 204:	ed 55       	subi	r30, 0x5D	; 93
+ 206:	ff 4f       	sbci	r31, 0xFF	; 255
+ 208:	80 81       	ld	r24, Z
+ 20a:	8e 5f       	subi	r24, 0xFE	; 254
+ 20c:	80 93 a2 00 	sts	0x00A2, r24
+			RxBuffrOK = FALSE;
+ 210:	10 92 c4 00 	sts	0x00C4, r1
+		}
+		if (Odpocet_Delky == 0)
+ 214:	80 91 a2 00 	lds	r24, 0x00A2
+ 218:	81 11       	cpse	r24, r1
+ 21a:	06 c0       	rjmp	.+12     	; 0x228 <__vector_11+0x5e>
+		{
+			RxBuffrOK = TRUE;
+ 21c:	91 e0       	ldi	r25, 0x01	; 1
+ 21e:	90 93 c4 00 	sts	0x00C4, r25
+			//Ulozí na posledni pozici, ze jsou ulozeny data do bufferu
+			RxBuffer[15] = 0xFF;
+ 222:	9f ef       	ldi	r25, 0xFF	; 255
+ 224:	90 93 b2 00 	sts	0x00B2, r25
+// 		{
+// 			RxBuffrOK = FALSE;
+// 		}
+		
+		
+		--Odpocet_Delky;
+ 228:	81 50       	subi	r24, 0x01	; 1
+ 22a:	80 93 a2 00 	sts	0x00A2, r24
+	}
+	RxBuffrRxPtr++;
+ 22e:	80 91 f7 00 	lds	r24, 0x00F7
+ 232:	8f 5f       	subi	r24, 0xFF	; 255
+ 234:	80 93 f7 00 	sts	0x00F7, r24
+	RxBuffer[RxBuffrRxPtr+1] = '\0';
+ 238:	e0 91 f7 00 	lds	r30, 0x00F7
+ 23c:	f0 e0       	ldi	r31, 0x00	; 0
+ 23e:	ed 55       	subi	r30, 0x5D	; 93
+ 240:	ff 4f       	sbci	r31, 0xFF	; 255
+ 242:	11 82       	std	Z+1, r1	; 0x01
+	
+}
+ 244:	ff 91       	pop	r31
+ 246:	ef 91       	pop	r30
+ 248:	9f 91       	pop	r25
+ 24a:	8f 91       	pop	r24
+ 24c:	0f 90       	pop	r0
+ 24e:	0f be       	out	0x3f, r0	; 63
+ 250:	0f 90       	pop	r0
+ 252:	1f 90       	pop	r1
+ 254:	18 95       	reti
+
+00000256 <Null_I2C_Buffer>:
+		}
+    }
+}
+
+void Null_I2C_Buffer()
+{
+ 256:	e7 ed       	ldi	r30, 0xD7	; 215
+ 258:	f0 e0       	ldi	r31, 0x00	; 0
+ 25a:	87 ee       	ldi	r24, 0xE7	; 231
+ 25c:	90 e0       	ldi	r25, 0x00	; 0
+	
+	int i=0;
+	for (i=0; i<16; i++)
+	{
+		I2C_RecBuffer[i]=0x00;
+ 25e:	11 92       	st	Z+, r1
+
+void Null_I2C_Buffer()
+{
+	
+	int i=0;
+	for (i=0; i<16; i++)
+ 260:	e8 17       	cp	r30, r24
+ 262:	f9 07       	cpc	r31, r25
+ 264:	e1 f7       	brne	.-8      	; 0x25e <Null_I2C_Buffer+0x8>
+	{
+		I2C_RecBuffer[i]=0x00;
+	}
+	
+	I2C_RecBuffer[15]=0x00;
+ 266:	10 92 e6 00 	sts	0x00E6, r1
+ 26a:	08 95       	ret
+
+0000026c <I2C_Init>:
+}
+
+void I2C_Init(void)
+{
+	//load slave address
+	TWAR = (I2C_Adress_Slave<<1); //we're using address 0x01
+ 26c:	82 e0       	ldi	r24, 0x02	; 2
+ 26e:	82 b9       	out	0x02, r24	; 2
+		
+	//enable I2C hardware & enable interrupt
+	TWCR = (1<<TWEN)|(1<<TWEA) | (1 << SREG) | (1 << TWIE);
+ 270:	2f b7       	in	r18, 0x3f	; 63
+ 272:	81 e0       	ldi	r24, 0x01	; 1
+ 274:	90 e0       	ldi	r25, 0x00	; 0
+ 276:	02 c0       	rjmp	.+4      	; 0x27c <I2C_Init+0x10>
+ 278:	88 0f       	add	r24, r24
+ 27a:	99 1f       	adc	r25, r25
+ 27c:	2a 95       	dec	r18
+ 27e:	e2 f7       	brpl	.-8      	; 0x278 <I2C_Init+0xc>
+ 280:	85 64       	ori	r24, 0x45	; 69
+ 282:	86 bf       	out	0x36, r24	; 54
+ 284:	08 95       	ret
+
+00000286 <main>:
+
+
+int main(void)
+{
+	//Inicializace sériové linky
+	RS232_Init(RS232_38400);
+ 286:	87 e1       	ldi	r24, 0x17	; 23
+ 288:	90 e0       	ldi	r25, 0x00	; 0
+ 28a:	80 df       	rcall	.-256    	; 0x18c <RS232_Init>
+	
+	I2C_Init();
+ 28c:	ef df       	rcall	.-34     	; 0x26c <I2C_Init>
+	
+	//Nastavení portu C jako výstupního
+	//DDRB = 0xFF;
+    DDRC |= (1 << DDC0);
+ 28e:	a0 9a       	sbi	0x14, 0	; 20
+	//Povolení pøerušení
+	sei();
+ 290:	78 94       	sei
+			RxBuffer[15] = 0x00;
+		} 
+		*/
+		_delay_ms(1);
+		
+		if(I2C_RecBuffer[15] == 0xFF)
+ 292:	c6 ee       	ldi	r28, 0xE6	; 230
+ 294:	d0 e0       	ldi	r29, 0x00	; 0
+		{
+			RxBuffer[15]=0x00;
+ 296:	0f 2e       	mov	r0, r31
+ 298:	f2 eb       	ldi	r31, 0xB2	; 178
+ 29a:	ef 2e       	mov	r14, r31
+ 29c:	f0 e0       	ldi	r31, 0x00	; 0
+ 29e:	ff 2e       	mov	r15, r31
+ 2a0:	f0 2d       	mov	r31, r0
+			switch(I2C_RecBuffer[0])
+ 2a2:	07 ed       	ldi	r16, 0xD7	; 215
+ 2a4:	10 e0       	ldi	r17, 0x00	; 0
+			{
+				case 0x01 :
+					BH_Setpoint(I2C_RecBuffer[1], I2C_RecBuffer[2]);
+ 2a6:	0f 2e       	mov	r0, r31
+ 2a8:	f9 ed       	ldi	r31, 0xD9	; 217
+ 2aa:	af 2e       	mov	r10, r31
+ 2ac:	f0 e0       	ldi	r31, 0x00	; 0
+ 2ae:	bf 2e       	mov	r11, r31
+ 2b0:	f0 2d       	mov	r31, r0
+ 2b2:	0f 2e       	mov	r0, r31
+ 2b4:	f8 ed       	ldi	r31, 0xD8	; 216
+ 2b6:	cf 2e       	mov	r12, r31
+ 2b8:	f0 e0       	ldi	r31, 0x00	; 0
+ 2ba:	df 2e       	mov	r13, r31
+ 2bc:	f0 2d       	mov	r31, r0
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 2be:	86 e6       	ldi	r24, 0x66	; 102
+ 2c0:	9e e0       	ldi	r25, 0x0E	; 14
+ 2c2:	01 97       	sbiw	r24, 0x01	; 1
+ 2c4:	f1 f7       	brne	.-4      	; 0x2c2 <main+0x3c>
+ 2c6:	00 00       	nop
+			RxBuffer[15] = 0x00;
+		} 
+		*/
+		_delay_ms(1);
+		
+		if(I2C_RecBuffer[15] == 0xFF)
+ 2c8:	88 81       	ld	r24, Y
+ 2ca:	8f 3f       	cpi	r24, 0xFF	; 255
+ 2cc:	c1 f7       	brne	.-16     	; 0x2be <main+0x38>
+		{
+			RxBuffer[15]=0x00;
+ 2ce:	f7 01       	movw	r30, r14
+ 2d0:	10 82       	st	Z, r1
+			switch(I2C_RecBuffer[0])
+ 2d2:	f8 01       	movw	r30, r16
+ 2d4:	80 81       	ld	r24, Z
+ 2d6:	82 30       	cpi	r24, 0x02	; 2
+ 2d8:	81 f0       	breq	.+32     	; 0x2fa <main+0x74>
+ 2da:	18 f4       	brcc	.+6      	; 0x2e2 <main+0x5c>
+ 2dc:	81 30       	cpi	r24, 0x01	; 1
+ 2de:	31 f0       	breq	.+12     	; 0x2ec <main+0x66>
+ 2e0:	ee cf       	rjmp	.-36     	; 0x2be <main+0x38>
+ 2e2:	83 30       	cpi	r24, 0x03	; 3
+ 2e4:	69 f0       	breq	.+26     	; 0x300 <main+0x7a>
+ 2e6:	84 30       	cpi	r24, 0x04	; 4
+ 2e8:	71 f0       	breq	.+28     	; 0x306 <main+0x80>
+ 2ea:	e9 cf       	rjmp	.-46     	; 0x2be <main+0x38>
+			{
+				case 0x01 :
+					BH_Setpoint(I2C_RecBuffer[1], I2C_RecBuffer[2]);
+ 2ec:	f5 01       	movw	r30, r10
+ 2ee:	60 81       	ld	r22, Z
+ 2f0:	f6 01       	movw	r30, r12
+ 2f2:	80 81       	ld	r24, Z
+ 2f4:	d4 de       	rcall	.-600    	; 0x9e <BH_Setpoint>
+					//RS232_Transmit_Char(0xFA);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					Null_I2C_Buffer();
+ 2f6:	af df       	rcall	.-162    	; 0x256 <Null_I2C_Buffer>
+				break;
+ 2f8:	e2 cf       	rjmp	.-60     	; 0x2be <main+0x38>
+				case 0x02 :
+					BH_Measure();
+ 2fa:	a6 de       	rcall	.-692    	; 0x48 <BH_Measure>
+					//RS232_Transmit_Char(0xFB);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					Null_I2C_Buffer();
+ 2fc:	ac df       	rcall	.-168    	; 0x256 <Null_I2C_Buffer>
+				break;
+ 2fe:	df cf       	rjmp	.-66     	; 0x2be <main+0x38>
+				case 0x03 :
+					BH_SetFullOpen();
+ 300:	f7 de       	rcall	.-530    	; 0xf0 <BH_SetFullOpen>
+					//RS232_Transmit_Char(0xFC);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					Null_I2C_Buffer();
+ 302:	a9 df       	rcall	.-174    	; 0x256 <Null_I2C_Buffer>
+				break;
+ 304:	dc cf       	rjmp	.-72     	; 0x2be <main+0x38>
+				case 0x04 :
+					BH_SetFullClose();
+ 306:	1b df       	rcall	.-458    	; 0x13e <BH_SetFullClose>
+					//RS232_Transmit_Char(0xFD);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					//RS232_Transmit_Char(0xFF);
+					Null_I2C_Buffer();
+ 308:	a6 df       	rcall	.-180    	; 0x256 <Null_I2C_Buffer>
+				break;
+ 30a:	d9 cf       	rjmp	.-78     	; 0x2be <main+0x38>
+
+0000030c <handleI2C>:
+#define TWRESET (TWCR=(1<<TWINT)|(1<<TWEN)|(1<<TWSTO)|(1<<TWEA))
+
+void handleI2C()
+{
+	//check if we need to do any software actions
+	if(CHK(TWCR,TWINT)){
+ 30c:	06 b6       	in	r0, 0x36	; 54
+ 30e:	07 fe       	sbrs	r0, 7
+ 310:	63 c0       	rjmp	.+198    	; 0x3d8 <handleI2C+0xcc>
+		switch(TW_STATUS){
+ 312:	81 b1       	in	r24, 0x01	; 1
+ 314:	88 7f       	andi	r24, 0xF8	; 248
+ 316:	88 38       	cpi	r24, 0x88	; 136
+ 318:	d1 f1       	breq	.+116    	; 0x38e <handleI2C+0x82>
+ 31a:	60 f4       	brcc	.+24     	; 0x334 <handleI2C+0x28>
+ 31c:	80 36       	cpi	r24, 0x60	; 96
+ 31e:	c9 f0       	breq	.+50     	; 0x352 <handleI2C+0x46>
+ 320:	20 f4       	brcc	.+8      	; 0x32a <handleI2C+0x1e>
+ 322:	88 23       	and	r24, r24
+ 324:	09 f4       	brne	.+2      	; 0x328 <handleI2C+0x1c>
+ 326:	56 c0       	rjmp	.+172    	; 0x3d4 <handleI2C+0xc8>
+ 328:	08 95       	ret
+ 32a:	88 36       	cpi	r24, 0x68	; 104
+ 32c:	51 f1       	breq	.+84     	; 0x382 <handleI2C+0x76>
+ 32e:	80 38       	cpi	r24, 0x80	; 128
+ 330:	a9 f0       	breq	.+42     	; 0x35c <handleI2C+0x50>
+ 332:	08 95       	ret
+ 334:	88 3b       	cpi	r24, 0xB8	; 184
+ 336:	b9 f1       	breq	.+110    	; 0x3a6 <handleI2C+0x9a>
+ 338:	28 f4       	brcc	.+10     	; 0x344 <handleI2C+0x38>
+ 33a:	80 3a       	cpi	r24, 0xA0	; 160
+ 33c:	29 f1       	breq	.+74     	; 0x388 <handleI2C+0x7c>
+ 33e:	88 3a       	cpi	r24, 0xA8	; 168
+ 340:	49 f1       	breq	.+82     	; 0x394 <handleI2C+0x88>
+ 342:	08 95       	ret
+ 344:	80 3c       	cpi	r24, 0xC0	; 192
+ 346:	09 f4       	brne	.+2      	; 0x34a <handleI2C+0x3e>
+ 348:	42 c0       	rjmp	.+132    	; 0x3ce <handleI2C+0xc2>
+ 34a:	88 3c       	cpi	r24, 0xC8	; 200
+ 34c:	09 f4       	brne	.+2      	; 0x350 <handleI2C+0x44>
+ 34e:	3f c0       	rjmp	.+126    	; 0x3ce <handleI2C+0xc2>
+ 350:	08 95       	ret
+			//--------------Slave receiver------------------------------------
+			//SLA_W received and acked, prepare for data receiving
+			case 0x60:
+				TWACK;
+ 352:	84 ec       	ldi	r24, 0xC4	; 196
+ 354:	86 bf       	out	0x36, r24	; 54
+				r_index =0;
+ 356:	10 92 a1 00 	sts	0x00A1, r1
+			break;
+ 35a:	08 95       	ret
+			case 0x80:  //a byte was received, store it and
+				//setup the buffer to recieve another
+				I2C_RecBuffer[r_index] = TWDR;
+ 35c:	80 91 a1 00 	lds	r24, 0x00A1
+ 360:	93 b1       	in	r25, 0x03	; 3
+ 362:	e8 2f       	mov	r30, r24
+ 364:	f0 e0       	ldi	r31, 0x00	; 0
+ 366:	e9 52       	subi	r30, 0x29	; 41
+ 368:	ff 4f       	sbci	r31, 0xFF	; 255
+ 36a:	90 83       	st	Z, r25
+				r_index++;
+ 36c:	8f 5f       	subi	r24, 0xFF	; 255
+ 36e:	80 93 a1 00 	sts	0x00A1, r24
+			//don't ack next data if buffer is full
+				if(r_index >= BUFLEN_RECV)
+ 372:	80 31       	cpi	r24, 0x10	; 16
+ 374:	18 f0       	brcs	.+6      	; 0x37c <handleI2C+0x70>
+				{
+					TWNACK;
+ 376:	84 e8       	ldi	r24, 0x84	; 132
+ 378:	86 bf       	out	0x36, r24	; 54
+ 37a:	08 95       	ret
+				}
+				else TWACK;
+ 37c:	84 ec       	ldi	r24, 0xC4	; 196
+ 37e:	86 bf       	out	0x36, r24	; 54
+ 380:	08 95       	ret
+			
+			break;
+			case 0x68://adressed as slave while in master mode.
+			//should never happen, better reset;
+				reset=1;
+ 382:	81 e0       	ldi	r24, 0x01	; 1
+ 384:	80 93 8f 00 	sts	0x008F, r24
+				case 0xA0: //Stop or rep start, reset state machine
+					TWACK;
+ 388:	84 ec       	ldi	r24, 0xC4	; 196
+ 38a:	86 bf       	out	0x36, r24	; 54
+				break;
+ 38c:	08 95       	ret
+			//-------------- error recovery ----------------------------------
+			case 0x88: //data received  but not acked
+			//should not happen if the master is behaving as expected
+			//switch to not adressed mode
+				TWACK;
+ 38e:	84 ec       	ldi	r24, 0xC4	; 196
+ 390:	86 bf       	out	0x36, r24	; 54
+			break;
+ 392:	08 95       	ret
+			//---------------Slave Transmitter--------------------------------
+			case 0xA8:  //SLA R received, prep for transmission
+				//and load first data
+				t_index=1;
+ 394:	81 e0       	ldi	r24, 0x01	; 1
+ 396:	80 93 a0 00 	sts	0x00A0, r24
+				TWDR = I2C_TranBuffer[0];
+ 39a:	80 91 90 00 	lds	r24, 0x0090
+ 39e:	83 b9       	out	0x03, r24	; 3
+				TWACK;
+ 3a0:	84 ec       	ldi	r24, 0xC4	; 196
+ 3a2:	86 bf       	out	0x36, r24	; 54
+			break;
+ 3a4:	08 95       	ret
+			case 0xB8:  //data transmitted and acked by master, load next
+				TWDR = I2C_TranBuffer[t_index];
+ 3a6:	e0 91 a0 00 	lds	r30, 0x00A0
+ 3aa:	f0 e0       	ldi	r31, 0x00	; 0
+ 3ac:	e0 57       	subi	r30, 0x70	; 112
+ 3ae:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3b0:	80 81       	ld	r24, Z
+ 3b2:	83 b9       	out	0x03, r24	; 3
+				t_index++;
+ 3b4:	80 91 a0 00 	lds	r24, 0x00A0
+ 3b8:	8f 5f       	subi	r24, 0xFF	; 255
+ 3ba:	80 93 a0 00 	sts	0x00A0, r24
+				
+				//designate last byte if we're at the end of the buffer
+				if(t_index >= BUFLEN_TRAN)
+ 3be:	80 31       	cpi	r24, 0x10	; 16
+ 3c0:	18 f0       	brcs	.+6      	; 0x3c8 <handleI2C+0xbc>
+				{
+					TWNACK;
+ 3c2:	84 e8       	ldi	r24, 0x84	; 132
+ 3c4:	86 bf       	out	0x36, r24	; 54
+ 3c6:	08 95       	ret
+				}
+				else
+				{
+					TWACK;
+ 3c8:	84 ec       	ldi	r24, 0xC4	; 196
+ 3ca:	86 bf       	out	0x36, r24	; 54
+ 3cc:	08 95       	ret
+			case 0xC8: //last byte send and acked by master
+			//last bytes should not be acked, ignore till start/stop
+			//reset=1;
+			case 0xC0: //last byte send and nacked by master
+			//(as should be)
+				TWACK;
+ 3ce:	84 ec       	ldi	r24, 0xC4	; 196
+ 3d0:	86 bf       	out	0x36, r24	; 54
+			break;
+ 3d2:	08 95       	ret
+			//--------------------- bus error---------------------------------
+			//illegal start or stop received, reset the I2C hardware
+			case 0x00:
+				TWRESET;
+ 3d4:	84 ed       	ldi	r24, 0xD4	; 212
+ 3d6:	86 bf       	out	0x36, r24	; 54
+ 3d8:	08 95       	ret
+
+000003da <__vector_17>:
+	RxBuffer[RxBuffrRxPtr+1] = '\0';
+	
+}
+
+ISR(TWI_vect)
+{
+ 3da:	1f 92       	push	r1
+ 3dc:	0f 92       	push	r0
+ 3de:	0f b6       	in	r0, 0x3f	; 63
+ 3e0:	0f 92       	push	r0
+ 3e2:	11 24       	eor	r1, r1
+ 3e4:	2f 93       	push	r18
+ 3e6:	3f 93       	push	r19
+ 3e8:	4f 93       	push	r20
+ 3ea:	5f 93       	push	r21
+ 3ec:	6f 93       	push	r22
+ 3ee:	7f 93       	push	r23
+ 3f0:	8f 93       	push	r24
+ 3f2:	9f 93       	push	r25
+ 3f4:	af 93       	push	r26
+ 3f6:	bf 93       	push	r27
+ 3f8:	ef 93       	push	r30
+ 3fa:	ff 93       	push	r31
+	//PORTB ^= (1 << PB1);
+	handleI2C();
+ 3fc:	87 df       	rcall	.-242    	; 0x30c <handleI2C>
+	
+	//Vystup z preruseni
+	TWCR |= (1 << TWIE);
+ 3fe:	86 b7       	in	r24, 0x36	; 54
+ 400:	81 60       	ori	r24, 0x01	; 1
+ 402:	86 bf       	out	0x36, r24	; 54
+}
+ 404:	ff 91       	pop	r31
+ 406:	ef 91       	pop	r30
+ 408:	bf 91       	pop	r27
+ 40a:	af 91       	pop	r26
+ 40c:	9f 91       	pop	r25
+ 40e:	8f 91       	pop	r24
+ 410:	7f 91       	pop	r23
+ 412:	6f 91       	pop	r22
+ 414:	5f 91       	pop	r21
+ 416:	4f 91       	pop	r20
+ 418:	3f 91       	pop	r19
+ 41a:	2f 91       	pop	r18
+ 41c:	0f 90       	pop	r0
+ 41e:	0f be       	out	0x3f, r0	; 63
+ 420:	0f 90       	pop	r0
+ 422:	1f 90       	pop	r1
+ 424:	18 95       	reti
+
+00000426 <_exit>:
+ 426:	f8 94       	cli
+
+00000428 <__stop_program>:
+ 428:	ff cf       	rjmp	.-2      	; 0x428 <__stop_program>
