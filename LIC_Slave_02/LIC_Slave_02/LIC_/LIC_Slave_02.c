@@ -104,11 +104,20 @@ ISR(USART_RXC_vect)
 
 ISR(TWI_vect)
 {
+	/*
+	Dopsáno pøi komunikaci masterem bliká.
+	*/
+	//Rozsvícení LED
+	PORTC |= (1 << PC0);
+	
 	//PORTB ^= (1 << PB1);
 	handleI2C();
 	
 	//Vystup z preruseni
 	TWCR |= (1 << TWIE);
+
+	//Zhasnutí LED
+	PORTC &= ~(1 << PC0);
 }
 
 
