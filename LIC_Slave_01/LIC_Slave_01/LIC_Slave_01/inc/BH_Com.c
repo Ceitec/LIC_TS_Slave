@@ -244,7 +244,7 @@ void BH_ControlMode_Ask(void)
 	Vystup[3] = 0x03;						//Adresa
 	Vystup[4] = 0x04;						//Delka
 	//Zacatek dat
-	Vystup[5] = 0x04;						//Command_Status - Zapis
+	Vystup[5] = 0x04;						//Command_Status - ètení
 	Vystup[6] = 0x01;						//Process
 	Vystup[7] = 0x01;						//FBn1
 	Vystup[8] = 0x04;
